@@ -5,12 +5,14 @@ Administrador::Administrador()
 {
 	nombre = "";
 	contrasena = "";
+	admin = true;
 }
 
 Administrador::Administrador(string pNombre, string pContrasena) : Usuario(pNombre)
 {
 	nombre = pNombre;
 	contrasena = pContrasena;
+	admin = true;
 }
 
 string Administrador::getContrasena()

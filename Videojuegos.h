@@ -4,7 +4,7 @@
 using namespace std;
 
 class Videojuegos {
-	private:
+	protected:
 		string nombre;
 		string ano;
 		string consola;

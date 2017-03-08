@@ -6,11 +6,13 @@ Vendedor::Vendedor()
 	nombre = "";
 	horaEntrada = "";
 	horaSalida = "";
+	admin = false;
 }
 
 Vendedor::Vendedor(string pNombre, string pHoraEntrada, string pHoraSalida) : Usuario(pNombre)
 {
 	nombre = pNombre;
+	admin = false;
 	horaEntrada = pHoraEntrada;
 	horaSalida = pHoraSalida;
 }

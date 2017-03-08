@@ -4,6 +4,7 @@ using namespace std;
 Usuario::Usuario()
 {
 	nombre = "";
+	admin = false;
 }
 
 Usuario::Usuario(string pNombre)
@@ -19,6 +20,11 @@ string Usuario::getNombre()
 void Usuario::setNombre(string pNombre)
 {
 	nombre = pNombre;
+}
+
+bool Usuario::getAdmin()
+{
+	return admin;
 }
 
 Usuario::~Usuario()

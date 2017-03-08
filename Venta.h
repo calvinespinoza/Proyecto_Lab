@@ -1,13 +1,16 @@
 #pragma once
 #include <string>
+#include <vector>
+#include "Consolas.h"
+#include "Videojuegos.h"
 
 using namespace std;
 
 class Venta {
 	private:
 		string nombreCliente;
-		Consolas* consolas;
-		Videojuegos* juegos;
+		vector<Consolas*> consolas;
+		vector<Videojuegos*> juegos;
 		string horaFinal;
 		string nombreUsuario;
 		double subtotal;
@@ -24,7 +27,7 @@ class Venta {
 		void setNombreCliente(string);
 		void setHoraFinal(string);
 		void setNombreUsuario(string);
-		void setSubtotal(double)
+		void setSubtotal(double);
 
 		~Venta();
 };
