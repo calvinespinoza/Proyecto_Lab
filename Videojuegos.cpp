@@ -109,3 +109,11 @@ Videojuegos::~Videojuegos()
 {
 
 }
+/*
+string Videojuegos::toString()const {
+	string ss;
+	ss = nombre;
+
+	return ss;
+}
+*/

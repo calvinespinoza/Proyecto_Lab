@@ -37,4 +37,5 @@ class Videojuegos {
 		void setPrecio(double);
 
 		virtual ~Videojuegos ();
+		//string toString()const;
 };
