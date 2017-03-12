@@ -1,5 +1,5 @@
-Main:	Main.o Consolas.o Videojuegos.o Microsoft.o Nintendo.o Sony.o Usuario.o Administrador.o Vendedor.o MicrosoftGames.o 	NintendoGames.o SonyGames.o Bandai.o Konami.o SquareEnix.o ElectronicArts.o Sega.o Ubisoft.o
-	g++ Main.o Consolas.o Videojuegos.o Microsoft.o Nintendo.o Sony.o Usuario.o Administrador.o Vendedor.o MicrosoftGames.o NintendoGames.o SonyGames.o Bandai.o Konami.o SquareEnix.o ElectronicArts.o Sega.o Ubisoft.o -o Main
+Main:	Main.o Consolas.o Videojuegos.o Microsoft.o Nintendo.o Sony.o Usuario.o Administrador.o Vendedor.o MicrosoftGames.o NintendoGames.o SonyGames.o Bandai.o Konami.o SquareEnix.o ElectronicArts.o Sega.o Ubisoft.o Venta.o
+	g++ Main.o Consolas.o Videojuegos.o Microsoft.o Nintendo.o Sony.o Usuario.o Administrador.o Vendedor.o MicrosoftGames.o NintendoGames.o SonyGames.o Bandai.o Konami.o SquareEnix.o ElectronicArts.o Sega.o Ubisoft.o Venta.o -o Main
 
 Main.o: Usuario.h Administrador.h Vendedor.h Venta.h Consolas.h Nintendo.h Microsoft.h Sony.h Videojuegos.h Main.cpp
 	g++ -c Main.cpp

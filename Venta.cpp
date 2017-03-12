@@ -55,3 +55,8 @@ double Venta::getSubtotal()
 {
 	return subtotal;
 }
+
+Venta::~Venta()
+{
+
+}
