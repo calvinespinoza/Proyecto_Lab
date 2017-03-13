@@ -36,8 +36,19 @@ using namespace std;
 int main()
 {
 	/* code */
-	cout << fechaActual();
-	cout << horaActual();
+	cout << fechaActual() << endl;
+	cout << horaActual() << endl;
+
+	stringstream ss;
+	string str;
+	string fuck22 = "fuck";
+	ss << "shit" << fuck22 << ".log";
+	str = ss.str();
+	ofstream outputFile(str, ios::in | ios::out);
+	outputFile.open(str);
+	outputFile << "hola" << str;
+	outputFile.close();
+
 	int opcion1 = 0, opcion2 = 0, opcion3 = 0;
 	char resp;
 
@@ -623,7 +634,7 @@ int main()
 						venta -> setHoraFinal(horaFinal);
 						venta -> setSubtotal(subtotal);
 
-						cout << "FECHA:\t" << date << "HORA:\t" << horaFinal;
+						cout << "FECHA:\t" << date  << endl << "HORA:\t" << horaFinal  << endl;
 						cout << "VENDEDOR:\t" << user << endl << "CLIENTE:\t" << cliente << endl;
 						cout << "CANTIDAD DE ARTICULOS\t" << cantidad;
 						cout << endl << articulos.str() << endl;
@@ -639,31 +650,32 @@ int main()
 						ask2 = false;
 						vendedor -> setHoraSalida(horaActual());
 
-						fstream outputFile;
+
 						//file.open("myFile.txt", ios::in | ios::out);
 						stringstream info, name;
 						string filename, out;
+						string hour = vendedor -> getHoraSalida();
+						string date = fechaActual();
 
-						name << user << "_" << vendedor -> getHoraEntrada() << "–"<< fechaActual() << ".log";
-
+						name << "./usuarios_log/" << user << "_" << hour << /*"–"<< date <<*/ ".log";
 						filename = name.str();
-						outputFile.open(filename);//, ios::in | ios::out);
+						cout << filename;
 
-
-						info << "GAMEHUB" << endl
+						info << endl << "\t\tGAMEHUB" << endl
 						<< "NOMBRE:\t" << user << endl
-						<< "HORA ENTRADA:\t" << vendedor -> getHoraEntrada()
-						<< "HORA SALIDA:\t" << vendedor -> getHoraSalida() << endl
+						<< "HORA ENTRADA:\t" << vendedor -> getHoraEntrada()  << endl
+						<< "HORA SALIDA:\t" << vendedor -> getHoraSalida() << endl << endl
 						<< endl << "CANTIDAD DE ARTICULOS VENDIDOS:\t" << cantidadTotal << endl
 						<< "DINERO GENERADO:\t" << total << endl;
 
 						out = info.str();
 
-						cout << out;
+						ofstream outputFile(filename, ios::in | ios::out);
+						outputFile.open(filename);//, ios::in | ios::out);
 						outputFile << out;
-
 						outputFile.close();
 
+						cout << out;
 					}
 
 				}
@@ -814,10 +826,16 @@ string fechaActual() {
 	stringstream ss;
 	time_t t = time(0);   // get time now
         struct tm * now = localtime( & t );
-        ss <<  now->tm_mday << '/'
-	<< (now->tm_mon + 1) << '/'
-	<< (now->tm_year + 1900)
-        << endl;
+	if (now->tm_mon + 1 >= 10) {
+	        ss <<  now->tm_mday << '/'
+		<< (now->tm_mon + 1) << '/'
+		<< (now->tm_year + 1900);
+	} else {
+		ss <<  now->tm_mday << '/'
+		<< '0' << (now->tm_mon + 1) << '/'
+		<< (now->tm_year + 1900);
+	}
+        //<< endl;
 
 	return ss.str();
 }
@@ -826,10 +844,26 @@ string horaActual() {
 	stringstream ss;
 	time_t t = time(0);   // get time now
         struct tm * now = localtime( & t );
-        ss << (now->tm_hour) << ':'
-        << (now->tm_min) << ':'
-        <<  now->tm_sec
-        << endl;
-
+	if (now->tm_min >= 10) {
+		if (now->tm_sec >= 10) {
+		        ss << (now->tm_hour) << ':'
+		        << (now->tm_min) << ':'
+		        <<  now->tm_sec;
+		} else {
+			ss << (now->tm_hour) << ':'
+		        << (now->tm_min) << ':'
+		        <<  '0' << now->tm_sec;
+		}
+	} else {
+		if (now->tm_sec > 10) {
+		        ss << (now->tm_hour) << ':'
+		        << '0' << (now->tm_min) << ':'
+		        <<  now->tm_sec;
+		} else {
+			ss << (now->tm_hour) << ':'
+		        << '0' << (now->tm_min) << ':'
+		        << '0' << now->tm_sec;
+		}
+	}
 	return ss.str();
 }
