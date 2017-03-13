@@ -101,7 +101,7 @@ int main()
 					if (opcion2 == 1)
 					{
 							string ano1, modelo, estado1;
-							int serie1, company1 = 0, type1 = 0;
+							int serie1, company1 = 0, type1 = 0, cantidad;
 							double precio1;
 
 							cout << "Ingrese el año en que salió: " << endl;
@@ -132,30 +132,37 @@ int main()
 							modelo = elegirModelo(company1, type1);
 							cout << "Ingrese el estado de la consola: " << endl;
 							cin >> estado1;
-							cout << "Ingrese el numero de serie: " << endl;
-							cin >> serie1;
-							serie1 = verificarSerieConsolas(consolas, serie1);
 							cout << "Ingrese el precio del modelo: " << endl;
 							cin >> precio1;
+							cout << "Cuantas consolas de estas quiere agregar: " << endl;
+							cin >> cantidad;
 
-							if (company1 == 1)
-							{
-								Microsoft* console = new Microsoft(ano1, modelo, estado1, serie1, precio1);
-								consolas.push_back(console);
-							}
-							else if (company1 == 2)
-							{
-								Sony* console = new Sony(ano1, modelo, estado1, serie1, precio1);
-								consolas.push_back(console);
-							}
-							else if (company1 == 3)
-							{
-								Nintendo* console = new Nintendo(ano1, modelo, estado1, serie1, precio1);
-								consolas.push_back(console);
-							}
-							else
-							{
-								cout << "Opcion no valida, consola no creada." << endl;
+							for (int i = 0; i < cantidad; i++) {
+								cout << "Ingrese el numero de serie: " << endl;
+								cin >> serie1;
+								serie1 = verificarSerieConsolas(consolas, serie1);
+								if (company1 == 1)
+								{
+									Microsoft* console = new Microsoft(ano1, modelo, estado1, serie1, precio1);
+									consolas.push_back(console);
+									cout << "Consola agregada exitosamente" << endl;
+								}
+								else if (company1 == 2)
+								{
+									Sony* console = new Sony(ano1, modelo, estado1, serie1, precio1);
+									consolas.push_back(console);
+									cout << "Consola agregada exitosamente" << endl;
+								}
+								else if (company1 == 3)
+								{
+									Nintendo* console = new Nintendo(ano1, modelo, estado1, serie1, precio1);
+									consolas.push_back(console);
+									cout << "Consola agregada exitosamente"<< endl;
+								}
+								else
+								{
+									cout << "Opcion no valida, consola no creada." << endl;
+								}
 							}
 
 
@@ -439,7 +446,7 @@ int main()
 					if (opcion3 == 1)
 					{
 						string ano1, modelo, estado1;
-						int serie1, company1 = 0, type1 = 0;
+						int serie1, company1 = 0, type1 = 0, cantidad;
 						double precio1;
 
 						cout << "Ingrese el año en que salió: " << endl;
@@ -470,28 +477,38 @@ int main()
 						modelo = elegirModelo(company1, type1);
 						cout << "Ingrese el estado de la consola: " << endl;
 						cin >> estado1;
-						cout << "Ingrese el numero de serie: " << endl;
-						cin >> serie1;
-						serie1 = verificarSerieConsolas(consolas, serie1);
 						cout << "Ingrese el precio del modelo: " << endl;
 						cin >> precio1;
+						cout << "Cuantas consolas de estas quiere agregar: " << endl;
+						cin >> cantidad;
 
-						if (company1 == 1)
-						{
-							Microsoft* console = new Microsoft(ano1, modelo, estado1, serie1, precio1);
-							consolas.push_back(console);
+						for (int i = 0; i < cantidad; i++) {
+							cout << "Ingrese el numero de serie: " << endl;
+							cin >> serie1;
+							serie1 = verificarSerieConsolas(consolas, serie1);
+							if (company1 == 1)
+							{
+								Microsoft* console = new Microsoft(ano1, modelo, estado1, serie1, precio1);
+								consolas.push_back(console);
+								cout << "Consola agregada exitosamente" << endl;
+							}
+							else if (company1 == 2)
+							{
+								Sony* console = new Sony(ano1, modelo, estado1, serie1, precio1);
+								consolas.push_back(console);
+								cout << "Consola agregada exitosamente" << endl;
+							}
+							else if (company1 == 3)
+							{
+								Nintendo* console = new Nintendo(ano1, modelo, estado1, serie1, precio1);
+								consolas.push_back(console);
+								cout << "Consola agregada exitosamente" << endl;
+							}
+							else
+							{
+								cout << "Opcion no valida, consola no creada." << endl;
+							}
 						}
-						else if (company1 == 2)
-						{
-							Sony* console = new Sony(ano1, modelo, estado1, serie1, precio1);
-							consolas.push_back(console);
-						}
-						else if (company1 == 3)
-						{
-							Nintendo* console = new Nintendo(ano1, modelo, estado1, serie1, precio1);
-							consolas.push_back(console);
-						}
-						cout << "Consola agregada exitosamente" << endl;
 					}
 					else if (opcion3 == 2)
 					{
@@ -630,7 +647,7 @@ int main()
 								<< consolas.at(opc_consola-1) -> getPrecio() << endl;
 
 								subtotal += consolas.at(opc_consola-1) -> getPrecio();
-
+								consolas.erase(consolas.begin()+opc_consola-1);
 
 							}
 
@@ -645,6 +662,7 @@ int main()
 								<< videojuegos.at(opc_juego-1) -> getPrecio() << endl;
 
 								subtotal += videojuegos.at(opc_juego-1) -> getPrecio();
+								videojuegos.erase(videojuegos.begin()+opc_juego-1);
 
 							}
 							cantidad++;
