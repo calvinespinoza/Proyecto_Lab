@@ -58,5 +58,11 @@ Vendedor.o:	Vendedor.cpp Vendedor.h
 Venta.o:	Venta.cpp Venta.h Consolas.h Vendedor.h
 	g++ -c Venta.cpp
 
+VectorConsolas.o:	VectorConsolas.cpp VectorConsolas.h Consolas.h
+	g++ -c VectorConsolas.cpp
+
+VectorVideojuegos.o:	VectorVideojuegos.cpp VectorVideojuegos.h Videojuegos.h
+	g++ -c VectorVideojuegos.cpp
+
 clean:
 	rm *.o Main

@@ -15,6 +15,8 @@
 #include "ElectronicArts.h"
 #include "Sega.h"
 #include "Ubisoft.h"
+//#include "VectorConsolas.h"
+//#include "VectorVideojuegos.h"
 
 #include <iostream>
 #include <string>
@@ -32,6 +34,8 @@ int verificarSerieJuegos(vector<Videojuegos*>, int);
 int verificarSerieConsolas(vector<Consolas*>, int);
 string fechaActual();
 string horaActual();
+//void escribirBinarioConsolas();
+//void escribirBinarioVideoJuegos();
 
 using namespace std;
 
@@ -506,7 +510,7 @@ int main()
 							cin >> company2;
 							if (company2 == 1)
 							{
-								cout << endl << "1. Xbox\n2.Xbox 360\n3.Xbox One\n";
+								cout << endl << "1. Xbox\n2. Xbox 360\n3. Xbox One\n";
 							}
 							else if (company2 == 2)
 							{
@@ -929,3 +933,28 @@ string horaActual() {
 	}
 	return ss.str();
 }
+/*
+void escribirBinarioConsolas(vector<Consolas*> vector1)
+{
+	VectorConsolas* vc = new VectorConsolas(vector1);
+
+	ofstream myfile;
+	myfile.open("./Binario/consolas.dat", ios::binary | ios::out);
+	for (int j = 0; j < vector1.size(); j++) {
+		vc -> save(myfile);
+	}
+	myfile.close();
+}
+
+void escribirBinarioVideoJuegos(vector<Videojuegos*> vector1)
+{
+	VectorVideojuegos* vv = new VectorVideojuegos(vector1);
+
+	ofstream myfile;
+	myfile.open("./Binario/videojuegos.dat", ios::binary | ios::out);
+	for (int j = 0; j < vector1.size(); j++) {
+		vv -> save(myfile);
+	}
+	myfile.close();
+}
+*/
