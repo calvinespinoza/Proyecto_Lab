@@ -12,7 +12,7 @@ class Usuario {
 		Usuario();
 		Usuario(string);
 
-		virtual string getNombre();
+		string getNombre();
 		bool getAdmin();
 		void setNombre(string);
 

@@ -26,7 +26,6 @@
 #include <string.h>
 
 string elegirModelo(int, int);
-void initial();
 void imprimirConsolas(vector<Consolas*>);
 void imprimirVideojuegos(vector<Videojuegos*>);
 int verificarSerieJuegos(vector<Videojuegos*>, int);
@@ -41,6 +40,7 @@ int main()
 	/* code */
 	cout << fechaActual() << endl;
 	cout << horaActual() << endl;
+	Administrador* admin = new Administrador("admin","password");
 /*
 	stringstream ss;
 	string str;
@@ -72,33 +72,209 @@ int main()
 
 		while (resp == 'y' || resp == 'Y')
 		{
-			/*
-			if (opcion1 == 1)
-			{
-				cout << "Ingrese el nombre de usuario: "
-			}
-			*/
 
 			if (opcion1 == 1)
 			{
-				cout << endl << "OPCIONES DE ADMINISTRADOR" << endl
-				<< "1. Agregar Consola" << endl
-				<< "2. Agregar Videojuego" << endl
-				<< "3. Modificar Consola" << endl
-				<< "4. Modificar Videojuego" << endl
-				<< "5. Eliminar Consola" << endl
-				<< "6. Eliminar Videojuego" << endl
-				<< "7. Cerrar Sesion" << endl;
-				cin >> opcion2;
+				string nombre, pass;
+				cout << "Ingrese el nombre del administrador: (admin)" << endl;
+				cin >> nombre;
 
-				if (opcion2 == 1)
+				cout << "Ingrese la contraseña: (password)" << endl;
+				cin >> pass;
+
+				if (nombre == admin -> getNombre() && pass == admin -> getContrasena())
 				{
+					cout << endl << "OPCIONES DE ADMINISTRADOR" << endl
+					<< "1. Agregar Consola" << endl
+					<< "2. Agregar Videojuego" << endl
+					<< "3. Modificar Consola" << endl
+					<< "4. Modificar Videojuego" << endl
+					<< "5. Eliminar Consola" << endl
+					<< "6. Eliminar Videojuego" << endl
+					<< "7. Cerrar Sesion" << endl;
+					cin >> opcion2;
+
+					if (opcion2 == 1)
+					{
+							string ano1, modelo, estado1;
+							int serie1, company1 = 0, type1 = 0;
+							double precio1;
+
+							cout << "Ingrese el año en que salió: " << endl;
+							cin >> ano1;
+							do {
+								cout << endl << "Compañia:\n1. Microsoft\n2. Sony\n3. Nintendo" << endl;
+								cin >> company1;
+								if (company1 == 1)
+								{
+									cout << endl << "1. Xbox\n2. Xbox 360\n3. Xbox One\n";
+								}
+								else if (company1 == 2)
+								{
+									cout << endl << "1. PlayStation 1\n2. PlayStation 2\n3. PlayStation 3\n"
+									<< "4. PlayStation 4\n5. PSP\n6. PS Vita\n";
+								}
+								else if (company1 == 3)
+								{
+									cout << endl << "1. Nintendo Entertainment System\n2. Super Nintendo Entertainment System\n3. Nintendo 64\n4. Nintendo GameCube\n5. Nintendo Wii\n6. Nintendo Wii U\n7. Nintendo Switch\n8. Gameboy\n9. Gameboy Color\n10. Gameboy Advance\n11. Nintendo DS\n12. Nintendo DSi\n13. Nintendo 3DS\n14. Nintendo New 3DS\n";
+								}
+					 			else
+								{
+									cout << endl << "Opcion invalida, ingreselo otra vez";
+								}
+							} while (company1 < 0 || company1 > 4);
+							cout << "Ingrese su opcion: ";
+							cin >> type1;
+							modelo = elegirModelo(company1, type1);
+							cout << "Ingrese el estado de la consola: " << endl;
+							cin >> estado1;
+							cout << "Ingrese el numero de serie: " << endl;
+							cin >> serie1;
+							serie1 = verificarSerieConsolas(consolas, serie1);
+							cout << "Ingrese el precio del modelo: " << endl;
+							cin >> precio1;
+
+							if (company1 == 1)
+							{
+								Microsoft* console = new Microsoft(ano1, modelo, estado1, serie1, precio1);
+								consolas.push_back(console);
+							}
+							else if (company1 == 2)
+							{
+								Sony* console = new Sony(ano1, modelo, estado1, serie1, precio1);
+								consolas.push_back(console);
+							}
+							else if (company1 == 3)
+							{
+								Nintendo* console = new Nintendo(ano1, modelo, estado1, serie1, precio1);
+								consolas.push_back(console);
+							}
+							else
+							{
+								cout << "Opcion no valida, consola no creada." << endl;
+							}
+
+
+					}
+					else if (opcion2 == 2)
+					{
+						string nombre, ano2, consola, genero, estado2;
+						int jugadores, serie2, company2 = 0, type2 = 0, developer = 0;
+						double precio2;
+
+						cout << "Ingrese el nombre del videojuego: " << endl;
+						cin.ignore();
+						getline(cin,nombre);
+						cout << "Ingrese el año en que salió: " << endl;
+						cin >> ano2;
+						do {
+							cout << "Eliga la consola del videojuego: " << endl;
+							cout << endl << "Compañia:\n1. Microsoft\n2. Sony\n3. Nintendo" << endl;
+							cin >> company2;
+							if (company2 == 1)
+							{
+								cout << endl << "1. Xbox\n2. Xbox 360\n3. Xbox One\n";
+							}
+							else if (company2 == 2)
+							{
+								cout << endl << "1. PlayStation 1\n2. PlayStation 2\n3. PlayStation 3\n"
+								<< "4. PlayStation 4\n5. PSP\n6. PS Vita\n";
+							}
+							else if (company2 == 3)
+							{
+								cout << endl << "1. Nintendo Entertainment System\n2. Super Nintendo Entertainment System\n3. Nintendo 64\n4. Nintendo GameCube\n5. Nintendo Wii\n6. Nintendo Wii U\n7. Nintendo Switch\n8. Gameboy\n9. Gameboy Color\n10. Gameboy Advance\n11. Nintendo DS\n12. Nintendo DSi\n13. Nintendo 3DS\n14. Nintendo New 3DS\n";
+							}
+							else
+							{
+								cout << endl << "Opcion invalida, ingreselo otra vez" << endl;
+							}
+						} while (company2 < 0 || company2 > 4);
+						cin >> type2;
+						consola = elegirModelo(company2, type2);
+						cout << "Ingrese la cantidad de jugadores: " << endl;
+						cin >> jugadores;
+						cout << "Ingrese el género del juego: " << endl;
+						cin >> genero;
+						cout << "Ingrese el estado del videojuego: " << endl;
+						cin >> estado2;
+						cout << "Ingrese el numero de serie: " << endl;
+						cin >> serie2;
+						serie2 = verificarSerieJuegos(videojuegos, serie2);
+						cout << "Ingrese el precio del videojuego: " << endl;
+						cin >> precio2;
+						cout << "Eliga la compania desarrolladora del videojuego:\n1. Microsoft\n2. Sony\n3. Nintendo\n4. Bandai\n5. Konami\n6. Square Enix\n7. Electronic Arts\n8. Sega\n9. Ubisoft\n";
+						cout << endl;
+						cin >> developer;
+
+						if (developer == 1)
+						{
+							MicrosoftGames* game = new MicrosoftGames(nombre, ano2, consola, jugadores, genero, estado2, serie2, precio2);
+							videojuegos.push_back(game);
+						}
+						else if (developer == 2)
+						{
+							SonyGames* game = new SonyGames(nombre, ano2, consola, jugadores, genero, estado2, serie2, precio2);
+							videojuegos.push_back(game);
+						}
+						else if (developer == 3)
+						{
+							NintendoGames* game = new NintendoGames(nombre, ano2, consola, jugadores, genero, estado2, serie2, precio2);
+							videojuegos.push_back(game);
+						}
+						else if (developer == 4)
+						{
+							Bandai* game = new Bandai(nombre, ano2, consola, jugadores, genero, estado2, serie2, precio2);
+							videojuegos.push_back(game);
+						}
+						else if (developer == 5)
+						{
+							Konami* game = new Konami(nombre, ano2, consola, jugadores, genero, estado2, serie2, precio2);
+							videojuegos.push_back(game);
+						}
+						else if (developer == 6)
+						{
+							SquareEnix* game = new SquareEnix(nombre, ano2, consola, jugadores, genero, estado2, serie2, precio2);
+							videojuegos.push_back(game);
+						}
+						else if (developer == 7)
+						{
+							ElectronicArts* game = new ElectronicArts(nombre, ano2, consola, jugadores, genero, estado2, serie2, precio2);
+							videojuegos.push_back(game);
+						}
+						else if (developer == 8)
+						{
+							Sega* game = new Sega(nombre, ano2, consola, jugadores, genero, estado2, serie2, precio2);
+							videojuegos.push_back(game);
+						}
+						else if (developer == 9)
+						{
+							Ubisoft* game = new Ubisoft(nombre, ano2, consola, jugadores, genero, estado2, serie2, precio2);
+							videojuegos.push_back(game);
+						}
+						else
+						{
+							cout << "Opcion invalida";
+						}
+					}
+					else if (opcion2 == 3)
+					{
+						int option1;
+						imprimirConsolas(consolas);
+
+						cout << endl << "Eliga su opcion: " << endl;
+						cin >> option1;
+
+						Consolas* console = consolas.at(option1-1);
+
 						string ano1, modelo, estado1;
-						int serie1, company1 = 0, type1 = 0;
+						int serie1, type1 = 0, company1;
 						double precio1;
 
 						cout << "Ingrese el año en que salió: " << endl;
 						cin >> ano1;
+
+						//cout << typeid(console).name();
+
 						do {
 							cout << endl << "Compañia:\n1. Microsoft\n2. Sony\n3. Nintendo" << endl;
 							cin >> company1;
@@ -115,9 +291,9 @@ int main()
 							{
 								cout << endl << "1. Nintendo Entertainment System\n2. Super Nintendo Entertainment System\n3. Nintendo 64\n4. Nintendo GameCube\n5. Nintendo Wii\n6. Nintendo Wii U\n7. Nintendo Switch\n8. Gameboy\n9. Gameboy Color\n10. Gameboy Advance\n11. Nintendo DS\n12. Nintendo DSi\n13. Nintendo 3DS\n14. Nintendo New 3DS\n";
 							}
-				 			else
+							else
 							{
-								cout << endl << "Opcion invalida, ingreselo otra vez";
+								cout << endl << "Opcion invalida, ingreselo otra vez\n";
 							}
 						} while (company1 < 0 || company1 > 4);
 						cout << "Ingrese su opcion: ";
@@ -133,272 +309,103 @@ int main()
 
 						if (company1 == 1)
 						{
-							Microsoft* console = new Microsoft(ano1, modelo, estado1, serie1, precio1);
-							consolas.push_back(console);
+							console = new Microsoft(ano1, modelo, estado1, serie1, precio1);
+
+							consolas.erase(consolas.begin()+option1-1);
+							consolas.insert(consolas.begin()+option1-1, console);
 						}
 						else if (company1 == 2)
 						{
-							Sony* console = new Sony(ano1, modelo, estado1, serie1, precio1);
-							consolas.push_back(console);
+							console = new Sony(ano1, modelo, estado1, serie1, precio1);
+							consolas.erase(consolas.begin()+option1-1);
+							consolas.insert(consolas.begin()+option1-1, console);
 						}
 						else if (company1 == 3)
 						{
-							Nintendo* console = new Nintendo(ano1, modelo, estado1, serie1, precio1);
-							consolas.push_back(console);
+							console = new Nintendo(ano1, modelo, estado1, serie1, precio1);
+							consolas.erase(consolas.begin()+option1-1);
+							consolas.insert(consolas.begin()+option1-1, console);
 						}
 						else
 						{
-							cout << "Opcion no valida, consola no creada." << endl;
+							cout << "Opcion no valida, consola no modificada." << endl;
 						}
 
+						cout << "Consola modificada exitosamente";
 
-				}
-				else if (opcion2 == 2)
-				{
-					string nombre, ano2, consola, genero, estado2;
-					int jugadores, serie2, company2 = 0, type2 = 0, developer = 0;
-					double precio2;
+					}
+					else if (opcion2 == 4)
+					{
+						int option2;
+						imprimirVideojuegos(videojuegos);
 
-					cout << "Ingrese el nombre del videojuego: " << endl;
-					cin.ignore();
-					getline(cin,nombre);
-					cout << "Ingrese el año en que salió: " << endl;
-					cin >> ano2;
-					do {
-						cout << "Eliga la consola del videojuego: " << endl;
-						cout << endl << "Compañia:\n1. Microsoft\n2. Sony\n3. Nintendo" << endl;
-						cin >> company2;
-						if (company2 == 1)
-						{
-							cout << endl << "1. Xbox\n2. Xbox 360\n3. Xbox One\n";
-						}
-						else if (company2 == 2)
-						{
-							cout << endl << "1. PlayStation 1\n2. PlayStation 2\n3. PlayStation 3\n"
-							<< "4. PlayStation 4\n5. PSP\n6. PS Vita\n";
-						}
-						else if (company2 == 3)
-						{
-							cout << endl << "1. Nintendo Entertainment System\n2. Super Nintendo Entertainment System\n3. Nintendo 64\n4. Nintendo GameCube\n5. Nintendo Wii\n6. Nintendo Wii U\n7. Nintendo Switch\n8. Gameboy\n9. Gameboy Color\n10. Gameboy Advance\n11. Nintendo DS\n12. Nintendo DSi\n13. Nintendo 3DS\n14. Nintendo New 3DS\n";
-						}
-						else
-						{
-							cout << endl << "Opcion invalida, ingreselo otra vez" << endl;
-						}
-					} while (company2 < 0 || company2 > 4);
-					cin >> type2;
-					consola = elegirModelo(company2, type2);
-					cout << "Ingrese la cantidad de jugadores: " << endl;
-					cin >> jugadores;
-					cout << "Ingrese el género del juego: " << endl;
-					cin >> genero;
-					cout << "Ingrese el estado del videojuego: " << endl;
-					cin >> estado2;
-					cout << "Ingrese el numero de serie: " << endl;
-					cin >> serie2;
-					serie2 = verificarSerieJuegos(videojuegos, serie2);
-					cout << "Ingrese el precio del videojuego: " << endl;
-					cin >> precio2;
-					cout << "Eliga la compania desarrolladora del videojuego:\n1. Microsoft\n2. Sony\n3. Nintendo\n4. Bandai\n5. Konami\n6. Square Enix\n7. Electronic Arts\n8. Sega\n9. Ubisoft\n";
-					cout << endl;
-					cin >> developer;
+						cout << endl << "Eliga su opcion: " << endl;
+						cin >> option2;
 
-					if (developer == 1)
-					{
-						MicrosoftGames* game = new MicrosoftGames(nombre, ano2, consola, jugadores, genero, estado2, serie2, precio2);
-						videojuegos.push_back(game);
+						Videojuegos* game = videojuegos.at(option2-1);
+
+						string nombre, ano2, consola, genero, estado2;
+						int jugadores, serie2, company2 = 0, type2 = 0, developer = 0;
+						double precio2;
+
+						cout << "Ingrese el nombre del videojuego: " << endl;
+						cin.ignore();
+						getline(cin,nombre);
+						cout << "Ingrese el año en que salió: " << endl;
+						cin >> ano2;
+						cout << "Ingrese la cantidad de jugadores: " << endl;
+						cin >> jugadores;
+						cout << "Ingrese el género del juego: " << endl;
+						cin >> genero;
+						cout << "Ingrese el estado del videojuego: " << endl;
+						cin >> estado2;
+						cout << "Ingrese el numero de serie: " << endl;
+						cin >> serie2;
+						serie2 = verificarSerieJuegos(videojuegos, serie2);
+						cout << "Ingrese el precio del videojuego: " << endl;
+						cin >> precio2;
+
+						game -> setNombre(nombre);
+						game -> setAno(ano2);
+						game -> setJugadores(jugadores);
+						game -> setGenero(genero);
+						game -> setEstado(estado2);
+						game -> setSerie(serie2);
+						game -> setPrecio(precio2);
+
+						cout << endl << "Videojuego modificado exitosamente" << endl;
 					}
-					else if (developer == 2)
+					else if (opcion2 == 5)
 					{
-						SonyGames* game = new SonyGames(nombre, ano2, consola, jugadores, genero, estado2, serie2, precio2);
-						videojuegos.push_back(game);
+						int option1;
+						imprimirConsolas(consolas);
+
+						cout << endl << "Eliga su opcion: " << endl;
+						cin >> option1;
+
+						consolas.erase(consolas.begin() + option1 - 1);
 					}
-					else if (developer == 3)
+					else if (opcion2 == 6)
 					{
-						NintendoGames* game = new NintendoGames(nombre, ano2, consola, jugadores, genero, estado2, serie2, precio2);
-						videojuegos.push_back(game);
+						int option1;
+						imprimirVideojuegos(videojuegos);
+
+						cout << endl << "Eliga su opcion: " << endl;
+						cin >> option1;
+
+						videojuegos.erase(videojuegos.begin() + option1 - 1);
 					}
-					else if (developer == 4)
+					else if (opcion2 == 7)
 					{
-						Bandai* game = new Bandai(nombre, ano2, consola, jugadores, genero, estado2, serie2, precio2);
-						videojuegos.push_back(game);
-					}
-					else if (developer == 5)
-					{
-						Konami* game = new Konami(nombre, ano2, consola, jugadores, genero, estado2, serie2, precio2);
-						videojuegos.push_back(game);
-					}
-					else if (developer == 6)
-					{
-						SquareEnix* game = new SquareEnix(nombre, ano2, consola, jugadores, genero, estado2, serie2, precio2);
-						videojuegos.push_back(game);
-					}
-					else if (developer == 7)
-					{
-						ElectronicArts* game = new ElectronicArts(nombre, ano2, consola, jugadores, genero, estado2, serie2, precio2);
-						videojuegos.push_back(game);
-					}
-					else if (developer == 8)
-					{
-						Sega* game = new Sega(nombre, ano2, consola, jugadores, genero, estado2, serie2, precio2);
-						videojuegos.push_back(game);
-					}
-					else if (developer == 9)
-					{
-						Ubisoft* game = new Ubisoft(nombre, ano2, consola, jugadores, genero, estado2, serie2, precio2);
-						videojuegos.push_back(game);
-					}
-					else
-					{
-						cout << "Opcion invalida";
+						ask = false;
+						resp = 'n';
 					}
 				}
-				else if (opcion2 == 3)
+				else
 				{
-					int option1;
-					imprimirConsolas(consolas);
-
-					cout << endl << "Eliga su opcion: " << endl;
-					cin >> option1;
-
-					Consolas* console = consolas.at(option1-1);
-
-					string ano1, modelo, estado1;
-					int serie1, type1 = 0, company1;
-					double precio1;
-
-					cout << "Ingrese el año en que salió: " << endl;
-					cin >> ano1;
-
-					//cout << typeid(console).name();
-
-					do {
-						cout << endl << "Compañia:\n1. Microsoft\n2. Sony\n3. Nintendo" << endl;
-						cin >> company1;
-						if (company1 == 1)
-						{
-							cout << endl << "1. Xbox\n2. Xbox 360\n3. Xbox One\n";
-						}
-						else if (company1 == 2)
-						{
-							cout << endl << "1. PlayStation 1\n2. PlayStation 2\n3. PlayStation 3\n"
-							<< "4. PlayStation 4\n5. PSP\n6. PS Vita\n";
-						}
-						else if (company1 == 3)
-						{
-							cout << endl << "1. Nintendo Entertainment System\n2. Super Nintendo Entertainment System\n3. Nintendo 64\n4. Nintendo GameCube\n5. Nintendo Wii\n6. Nintendo Wii U\n7. Nintendo Switch\n8. Gameboy\n9. Gameboy Color\n10. Gameboy Advance\n11. Nintendo DS\n12. Nintendo DSi\n13. Nintendo 3DS\n14. Nintendo New 3DS\n";
-						}
-						else
-						{
-							cout << endl << "Opcion invalida, ingreselo otra vez\n";
-						}
-					} while (company1 < 0 || company1 > 4);
-					cout << "Ingrese su opcion: ";
-					cin >> type1;
-					modelo = elegirModelo(company1, type1);
-					cout << "Ingrese el estado de la consola: " << endl;
-					cin >> estado1;
-					cout << "Ingrese el numero de serie: " << endl;
-					cin >> serie1;
-					serie1 = verificarSerieConsolas(consolas, serie1);
-					cout << "Ingrese el precio del modelo: " << endl;
-					cin >> precio1;
-
-					if (company1 == 1)
-					{
-						console = new Microsoft(ano1, modelo, estado1, serie1, precio1);
-
-						consolas.erase(consolas.begin()+option1-1);
-						consolas.insert(consolas.begin()+option1-1, console);
-					}
-					else if (company1 == 2)
-					{
-						console = new Sony(ano1, modelo, estado1, serie1, precio1);
-						consolas.erase(consolas.begin()+option1-1);
-						consolas.insert(consolas.begin()+option1-1, console);
-					}
-					else if (company1 == 3)
-					{
-						console = new Nintendo(ano1, modelo, estado1, serie1, precio1);
-						consolas.erase(consolas.begin()+option1-1);
-						consolas.insert(consolas.begin()+option1-1, console);
-					}
-					else
-					{
-						cout << "Opcion no valida, consola no modificada." << endl;
-					}
-
-					cout << "Consola modificada exitosamente";
-
-				}
-				else if (opcion2 == 4)
-				{
-					int option2;
-					imprimirVideojuegos(videojuegos);
-
-					cout << endl << "Eliga su opcion: " << endl;
-					cin >> option2;
-
-					Videojuegos* game = videojuegos.at(option2-1);
-
-					string nombre, ano2, consola, genero, estado2;
-					int jugadores, serie2, company2 = 0, type2 = 0, developer = 0;
-					double precio2;
-
-					cout << "Ingrese el nombre del videojuego: " << endl;
-					cin.ignore();
-					getline(cin,nombre);
-					cout << "Ingrese el año en que salió: " << endl;
-					cin >> ano2;
-					cout << "Ingrese la cantidad de jugadores: " << endl;
-					cin >> jugadores;
-					cout << "Ingrese el género del juego: " << endl;
-					cin >> genero;
-					cout << "Ingrese el estado del videojuego: " << endl;
-					cin >> estado2;
-					cout << "Ingrese el numero de serie: " << endl;
-					cin >> serie2;
-					serie2 = verificarSerieJuegos(videojuegos, serie2);
-					cout << "Ingrese el precio del videojuego: " << endl;
-					cin >> precio2;
-
-					game -> setNombre(nombre);
-					game -> setAno(ano2);
-					game -> setJugadores(jugadores);
-					game -> setGenero(genero);
-					game -> setEstado(estado2);
-					game -> setSerie(serie2);
-					game -> setPrecio(precio2);
-
-					cout << endl << "Videojuego modificado exitosamente" << endl;
-				}
-				else if (opcion2 == 5)
-				{
-					int option1;
-					imprimirConsolas(consolas);
-
-					cout << endl << "Eliga su opcion: " << endl;
-					cin >> option1;
-
-					consolas.erase(consolas.begin() + option1 - 1);
-				}
-				else if (opcion2 == 6)
-				{
-					int option1;
-					imprimirVideojuegos(videojuegos);
-
-					cout << endl << "Eliga su opcion: " << endl;
-					cin >> option1;
-
-					videojuegos.erase(videojuegos.begin() + option1 - 1);
-				}
-				else if (opcion2 == 7)
-				{
-					ask = false;
-					resp = 'n';
+					cout << "Nombre de usuario o contraseña estan incorrectos" << endl;
 				}
 			}
-
 			else if (opcion1 == 2)
 			{
 				string user, horaE;
@@ -846,11 +853,6 @@ void imprimirVideojuegos(vector <Videojuegos*> vector1)
         for (int j = 0; j < vector1.size(); j++) {
                 cout << j+1 << ") " << vector1.at(j) -> getNombre() << endl;
         }
-}
-
-void initial()
-{
-	Administrador* admin = new Administrador("admin","password");
 }
 
 int verificarSerieConsolas(vector <Consolas*> vector1, int tSerie)
