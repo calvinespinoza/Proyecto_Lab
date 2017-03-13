@@ -26,8 +26,11 @@
 #include <string.h>
 
 string elegirModelo(int, int);
+void initial();
 void imprimirConsolas(vector<Consolas*>);
 void imprimirVideojuegos(vector<Videojuegos*>);
+int verificarSerieJuegos(vector<Videojuegos*>, int);
+int verificarSerieConsolas(vector<Consolas*>, int);
 string fechaActual();
 string horaActual();
 
@@ -38,7 +41,7 @@ int main()
 	/* code */
 	cout << fechaActual() << endl;
 	cout << horaActual() << endl;
-
+/*
 	stringstream ss;
 	string str;
 	string fuck22 = "fuck";
@@ -47,14 +50,14 @@ int main()
 	ofstream outputFile(str, ios::in | ios::out);
 	outputFile.open(str);
 	outputFile << "hola" << str;
-	outputFile.close();
+	outputFile.close();*/
 
 	int opcion1 = 0, opcion2 = 0, opcion3 = 0;
 	char resp;
 
 	vector<Consolas*> consolas;
 	vector<Videojuegos*> videojuegos;
-	vector <int> series;
+	//vector <int> series;
 
 	do
 	{
@@ -75,6 +78,7 @@ int main()
 				cout << "Ingrese el nombre de usuario: "
 			}
 			*/
+
 			if (opcion1 == 1)
 			{
 				cout << endl << "OPCIONES DE ADMINISTRADOR" << endl
@@ -123,8 +127,10 @@ int main()
 						cin >> estado1;
 						cout << "Ingrese el numero de serie: " << endl;
 						cin >> serie1;
+						serie1 = verificarSerieConsolas(consolas, serie1);
 						cout << "Ingrese el precio del modelo: " << endl;
 						cin >> precio1;
+
 						if (company1 == 1)
 						{
 							Microsoft* console = new Microsoft(ano1, modelo, estado1, serie1, precio1);
@@ -190,6 +196,7 @@ int main()
 					cin >> estado2;
 					cout << "Ingrese el numero de serie: " << endl;
 					cin >> serie2;
+					serie2 = verificarSerieJuegos(videojuegos, serie2);
 					cout << "Ingrese el precio del videojuego: " << endl;
 					cin >> precio2;
 					cout << "Eliga la compania desarrolladora del videojuego:\n1. Microsoft\n2. Sony\n3. Nintendo\n4. Bandai\n5. Konami\n6. Square Enix\n7. Electronic Arts\n8. Sega\n9. Ubisoft\n";
@@ -293,6 +300,7 @@ int main()
 					cin >> estado1;
 					cout << "Ingrese el numero de serie: " << endl;
 					cin >> serie1;
+					serie1 = verificarSerieConsolas(consolas, serie1);
 					cout << "Ingrese el precio del modelo: " << endl;
 					cin >> precio1;
 
@@ -350,6 +358,7 @@ int main()
 					cin >> estado2;
 					cout << "Ingrese el numero de serie: " << endl;
 					cin >> serie2;
+					serie2 = verificarSerieJuegos(videojuegos, serie2);
 					cout << "Ingrese el precio del videojuego: " << endl;
 					cin >> precio2;
 
@@ -452,6 +461,7 @@ int main()
 						cin >> estado1;
 						cout << "Ingrese el numero de serie: " << endl;
 						cin >> serie1;
+						serie1 = verificarSerieConsolas(consolas, serie1);
 						cout << "Ingrese el precio del modelo: " << endl;
 						cin >> precio1;
 
@@ -515,6 +525,7 @@ int main()
 						cin >> estado2;
 						cout << "Ingrese el numero de serie: " << endl;
 						cin >> serie2;
+						serie2 = verificarSerieJuegos(videojuegos, serie2);
 						cout << "Ingrese el precio del videojuego: " << endl;
 						cin >> precio2;
 						cout << "Eliga la compania desarrolladora del videojuego:\n1. Microsoft\n2. Sony\n3. Nintendo\n4. Bandai\n5. Konami\n6. Square Enix\n7. Electronic Arts\n8. Sega\n9. Ubisoft\n";
@@ -634,15 +645,30 @@ int main()
 						venta -> setHoraFinal(horaFinal);
 						venta -> setSubtotal(subtotal);
 
-						cout << "FECHA:\t" << date  << endl << "HORA:\t" << horaFinal  << endl;
-						cout << "VENDEDOR:\t" << user << endl << "CLIENTE:\t" << cliente << endl;
-						cout << "CANTIDAD DE ARTICULOS\t" << cantidad;
-						cout << endl << articulos.str() << endl;
-						cout << "SUBTOTAL:\t" << subtotal << endl << "IMPUESTO: (15%)" << endl;
-						cout << "TOTAL:\t" << subtotal + subtotal * 0.15;
+						stringstream info, name;
+						string filename, out;
+
+						name << "./log_ventas/" << date << "_" << horaFinal <<  ".log";
+						filename = name.str();
+						cout << filename;
+
+						info << "\t\tGAMEHUB" << endl << endl
+						<< "FECHA:\t" << date  << endl << "HORA:\t" << horaFinal  << endl
+						<< "VENDEDOR:\t" << user << endl << "CLIENTE:\t" << cliente << endl << endl
+						<< "CANTIDAD DE ARTICULOS\t" << cantidad
+						<< endl << articulos.str() << endl
+						<< "SUBTOTAL:\t" << subtotal << endl << "IMPUESTO: (15%)" << endl
+						<< "TOTAL:\t" << subtotal + subtotal * 0.15;
 
 						cantidadTotal += cantidad;
 						total += subtotal + subtotal * 0.15;
+
+						out = info.str();
+
+						ofstream outputFile(filename, ios::in | ios::out);
+						outputFile.open(filename);//, ios::in | ios::out);
+						outputFile << out;
+						outputFile.close();
 
 					}
 					else if (opcion3 == 4)
@@ -659,9 +685,9 @@ int main()
 
 						name << "./usuarios_log/" << user << "_" << hour << /*"–"<< date <<*/ ".log";
 						filename = name.str();
-						cout << filename;
+						cout << filename << endl;
 
-						info << endl << "\t\tGAMEHUB" << endl
+						info << "\t\tGAMEHUB" << endl << endl
 						<< "NOMBRE:\t" << user << endl
 						<< "HORA ENTRADA:\t" << vendedor -> getHoraEntrada()  << endl
 						<< "HORA SALIDA:\t" << vendedor -> getHoraSalida() << endl << endl
@@ -822,17 +848,51 @@ void imprimirVideojuegos(vector <Videojuegos*> vector1)
         }
 }
 
+void initial()
+{
+	Administrador* admin = new Administrador("admin","password");
+}
+
+int verificarSerieConsolas(vector <Consolas*> vector1, int tSerie)
+{
+	for (int j = 0; j < vector1.size(); j++) {
+                if (tSerie == vector1.at(j) -> getSerie())
+		{
+			while (tSerie == vector1.at(j) -> getSerie()) {
+				cout << "Numero de serie ya existe." << endl << "Ingrese numero de serie: " << endl;
+				cin >> tSerie;
+			}
+		}
+        }
+	return tSerie;
+}
+
+int verificarSerieJuegos(vector <Videojuegos*> vector1, int tSerie)
+{
+	for (int j = 0; j < vector1.size(); j++) {
+                if (tSerie == vector1.at(j) -> getSerie())
+		{
+			while (tSerie == vector1.at(j) -> getSerie()) {
+				cout << "Numero de serie ya existe." << endl << "Ingrese numero de serie: " << endl;
+				cin >> tSerie;
+			}
+		}
+        }
+	return tSerie;
+}
+
+
 string fechaActual() {
 	stringstream ss;
 	time_t t = time(0);   // get time now
         struct tm * now = localtime( & t );
 	if (now->tm_mon + 1 >= 10) {
-	        ss <<  now->tm_mday << '/'
-		<< (now->tm_mon + 1) << '/'
+	        ss <<  now->tm_mday << '-'
+		<< (now->tm_mon + 1) << '-'
 		<< (now->tm_year + 1900);
 	} else {
-		ss <<  now->tm_mday << '/'
-		<< '0' << (now->tm_mon + 1) << '/'
+		ss <<  now->tm_mday << '-'
+		<< '0' << (now->tm_mon + 1) << '-'
 		<< (now->tm_year + 1900);
 	}
         //<< endl;
